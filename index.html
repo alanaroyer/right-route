@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota Certa - Gestão de Transporte Escolar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50">
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 lg:px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3 ml-12 lg:ml-0">
+                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-lg flex items-center justify-center">
+                        <span class="text-xl lg:text-2xl">🚌</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl lg:text-2xl font-bold">Rota Certa</h1>
+                        <p class="text-xs lg:text-sm opacity-90 hidden sm:block">Gestão de Transporte Escolar</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 lg:space-x-4">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()"
+                        class="theme-toggle w-12 h-6 bg-gray-300 rounded-full p-1 flex items-center">
+                        <div
+                            class="toggle-circle w-4 h-4 bg-white rounded-full shadow-md flex items-center justify-center">
+                            <span class="text-xs">🌙</span>
+                        </div>
+                    </button>
+
+                    <!-- Refresh Button -->
+                    <button onclick="refreshApp()"
+                        class="w-8 h-8 lg:w-10 lg:h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+                        <span class="text-lg lg:text-xl">🔄</span>
+                    </button>
+
+                    <div class="text-right hidden sm:block">
+                        <p class="font-semibold text-sm lg:text-base">João Silva</p>
+                        <p class="text-xs lg:text-sm opacity-90">Motorista</p>
+                    </div>
+                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-lg lg:text-xl">👤</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden fixed top-4 left-4 z-50">
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="bg-white p-2 rounded-lg shadow-lg">
+            <span class="text-xl">☰</span>
+        </button>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div id="mobileOverlay" class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white shadow-lg min-h-screen transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+            <nav class="p-6">
+                <ul class="space-y-2">
+                    <li>
+                        <button onclick="showSection('dashboard')"
+                            class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 flex items-center space-x-3 sidebar-active">
+                            <span>📊</span>
+                            <span>Dashboard</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="showSection('passageiros')"
+                            class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 flex items-center space-x-3">
+                            <span>👥</span>
+                            <span>Passageiros</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="showSection('financeiro')"
+                            class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 flex items-center space-x-3">
+                            <span>💰</span>
+                            <span>Financeiro</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="showSection('comunicacao')"
+                            class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 flex items-center space-x-3">
+                            <span>📱</span>
+                            <span>Comunicação</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="showSection('configuracoes')"
+                            class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 flex items-center space-x-3">
+                            <span>⚙️</span>
+                            <span>Configurações</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-6 lg:ml-0">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard</h2>
+                    <p class="text-gray-600">Visão geral do seu negócio</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Passageiros Cadastrados</p>
+                                <p id="totalPassageirosDash" class="text-3xl font-bold text-blue-600">0</p>
+                                <p class="text-xs text-gray-400">total cadastrado</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">👥</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Receita Mensal</p>
+                                <p id="receitaMensalDash" class="text-3xl font-bold text-green-600">R$ 0,00</p>
+                                <p class="text-xs text-gray-400">soma das mensalidades</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">💰</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Pagamentos Pendentes</p>
+                                <p class="text-3xl font-bold text-orange-600">3</p>
+                                <p class="text-xs text-gray-400">R$ 600,00</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">⏰</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Passageiros Ativos</p>
+                                <p id="passageirosAtivosDash" class="text-3xl font-bold text-purple-600">0</p>
+                                <p class="text-xs text-gray-400">status ativo</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">✅</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4">Atividades Recentes</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Pagamento recebido - Ana Silva</p>
+                                <p class="text-sm text-gray-500">R$ 200,00 • Há 2 horas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600">📱</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Lembrete enviado - Carlos Santos</p>
+                                <p class="text-sm text-gray-500">WhatsApp • Há 4 horas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="text-orange-600">👤</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Novo passageiro cadastrado - Maria Oliveira</p>
+                                <p class="text-sm text-gray-500">Há 1 dia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passageiros Section -->
+            <div id="passageiros" class="section hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Gestão de Passageiros</h2>
+                        <p class="text-gray-600">Controle completo dos seus passageiros</p>
+                    </div>
+                    <button onclick="openModal('novoPassageiro')"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2">
+                        <span>➕</span>
+                        <span>Novo Passageiro</span>
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <select id="statusFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                <option value="">Todos os Status</option>
+                                <option value="ativo">Ativo</option>
+                                <option value="inativo">Inativo</option>
+                                <option value="ferias">Férias</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Escola</label>
+                            <select id="escolaFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                <option value="">Todas as Escolas</option>
+                                <option value="escola-1">Èrico Verissimo</option>
+                                <option value="escola-2">Piero Sassi</option>
+                                <option value="escola-3">Arruda</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
+                            <select id="bairroFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                <option value="">Todos os Bairros</option>
+                                <option value="bairro-1">Conceição</option>
+                                <option value="bairro-2">Alvorada</option>
+                                <option value="bairro-3">Passo da Areia</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
+                            <input id="searchInput" type="text" placeholder="Nome do passageiro..."
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="applyFilters()"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            <span>🔍</span>
+                            <span>Filtrar</span>
+                        </button>
+                        <button onclick="clearFilters()"
+                            class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            <span>🗑️</span>
+                            <span>Limpar</span>
+                        </button>
+                        <button onclick="exportFilteredData()"
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            <span>📤</span>
+                            <span>Exportar</span>
+                        </button>
+                    </div>
+                    <div id="filterResults" class="mt-4 text-sm text-gray-600 hidden">
+                        <span id="resultCount">0</span> passageiros encontrados
+                    </div>
+                </div>
+
+                <!-- Passageiros List -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <!-- Desktop Table -->
+                    <div class="hidden lg:block overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Passageiro</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Responsável</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Escola</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Mensalidade</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
+                                </tr>
+                            </thead>
+                        <tbody id="passageirosTableBody" class="divide-y divide-gray-200">
+                        </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Cards -->
+                    <div class="lg:hidden divide-y divide-gray-200">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <span class="text-blue-600 font-semibold">AS</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Ana Silva</p>
+                                        <p class="text-sm text-gray-500">8 anos</p>
+                                    </div>
+                                </div>
+                                <span class="status-ativo text-white px-3 py-1 rounded-full text-sm">Ativo</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                                <div>
+                                    <p class="text-gray-500">Responsável:</p>
+                                    <p class="font-medium">Maria Silva</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Mensalidade:</p>
+                                    <p class="font-medium">R$ 200,00</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-sm text-gray-500">Escola Municipal</p>
+                                <div class="flex space-x-3">
+                                    <button onclick="editPassageiro('Ana Silva')" class="text-green-600"
+                                        title="Editar">✏️</button>
+                                    <button onclick="changeStatus('Ana Silva', 'ativo')" class="text-orange-600"
+                                        title="Alterar Status">🔄</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                        <span class="text-green-600 font-semibold">CS</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Carlos Santos</p>
+                                        <p class="text-sm text-gray-500">10 anos</p>
+                                    </div>
+                                </div>
+                                <span class="status-ferias text-white px-3 py-1 rounded-full text-sm">Férias</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                                <div>
+                                    <p class="text-gray-500">Responsável:</p>
+                                    <p class="font-medium">João Santos</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Mensalidade:</p>
+                                    <p class="font-medium">R$ 180,00</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-sm text-gray-500">Colégio São José</p>
+                                <div class="flex space-x-3">
+                                    <button onclick="editPassageiro('Carlos Santos')" class="text-green-600"
+                                        title="Editar">✏️</button>
+                                    <button onclick="changeStatus('Carlos Santos', 'ferias')" class="text-orange-600"
+                                        title="Alterar Status">🔄</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                        <span class="text-orange-600 font-semibold">MO</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Maria Oliveira</p>
+                                        <p class="text-sm text-gray-500">7 anos</p>
+                                    </div>
+                                </div>
+                                <span class="status-ativo text-white px-3 py-1 rounded-full text-sm">Ativo</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                                <div>
+                                    <p class="text-gray-500">Responsável:</p>
+                                    <p class="font-medium">Ana Oliveira</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">Mensalidade:</p>
+                                    <p class="font-medium">R$ 220,00</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-sm text-gray-500">Escola Estadual</p>
+                                <div class="flex space-x-3">
+                                    <button onclick="editPassageiro('Maria Oliveira')" class="text-green-600"
+                                        title="Editar">✏️</button>
+                                    <button onclick="changeStatus('Maria Oliveira', 'ativo')" class="text-orange-600"
+                                        title="Alterar Status">🔄</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financeiro Section -->
+            <div id="financeiro" class="section hidden">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Gestão Financeira</h2>
+                    <p class="text-gray-600">Controle completo das suas finanças</p>
+                </div>
+
+                <!-- Financial Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">Pagamentos em Dia</h3>
+                            <span class="text-2xl">💰</span>
+                        </div>
+                        <p class="text-3xl font-bold text-green-600">R$ 4.800,00</p>
+                        <p class="text-sm text-gray-500 mt-2">+12% vs mês anterior</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">Pendências</h3>
+                            <span class="text-2xl">⏰</span>
+                        </div>
+                        <p class="text-3xl font-bold text-orange-600">R$ 600,00</p>
+                        <p class="text-sm text-gray-500 mt-2">3 mensalidades</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">Em Atraso</h3>
+                            <span class="text-2xl">🚨</span>
+                        </div>
+                        <p class="text-3xl font-bold text-red-600">R$ 200,00</p>
+                        <p class="text-sm text-gray-500 mt-2">1 mensalidade</p>
+                    </div>
+                </div>
+
+                <!-- Payments Table -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-semibold">Controle de Mensalidades</h3>
+                            <button onclick="openModal('registrarPagamento')"
+                                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                                Registrar Pagamento
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Passageiro</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Mês/Ano</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Valor</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Vencimento</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
+                                    <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
+                                </tr>
+                            </thead>
+                            <div id="passageirosCardContainer" class="lg:hidden divide-y divide-gray-200">
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comunicação Section -->
+            <div id="comunicacao" class="section hidden">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">WhatsApp Business Integration</h2>
+                    <p class="text-gray-600">Central completa de comunicação automatizada</p>
+                </div>
+
+                <!-- WhatsApp Connection Setup -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                            <span>🔗</span>
+                            <span>Configuração da Conexão</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Número do WhatsApp
+                                    Business</label>
+                                <input type="tel" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                    placeholder="+55 11 99999-9999" value="+55 11 98765-4321">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Token da API</label>
+                                <input type="password" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                    placeholder="Insira seu token da API" value="••••••••••••••••">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Webhook URL</label>
+                                <input type="url" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                    placeholder="https://seu-webhook.com" value="https://api.rotacerta.com/webhook">
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="testConnection()"
+                                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
+                                    🔍 Testar Conexão
+                                </button>
+                                <button onclick="saveConnection()"
+                                    class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg">
+                                    💾 Salvar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                            <span>📊</span>
+                            <span>Status da Integração</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span class="font-medium">API Connection</span>
+                                </div>
+                                <span class="text-green-600 text-sm">Conectado</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span class="font-medium">Webhook</span>
+                                </div>
+                                <span class="text-green-600 text-sm">Ativo</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                    <span class="font-medium">Business Verification</span>
+                                </div>
+                                <span class="text-yellow-600 text-sm">Pendente</span>
+                            </div>
+                            <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                                <p class="text-sm text-blue-700">
+                                    <strong>Última sincronização:</strong> Hoje às 14:32<br>
+                                    <strong>Mensagens enviadas hoje:</strong> 47<br>
+                                    <strong>Taxa de entrega:</strong> 98.5%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Features -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                            <span>🤖</span>
+                            <span>Automação</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Auto-resposta</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Lembretes automáticos</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Confirmação de pagamento</span>
+                                <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Relatórios semanais</span>
+                                <input type="checkbox" class="w-4 h-4 text-green-600 rounded">
+                            </div>
+                            <button onclick="configureAutomation()"
+                                class="w-full mt-3 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-sm">
+                                ⚙️ Configurar Regras
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                            <span>📋</span>
+                            <span>Templates</span>
+                        </h3>
+                        <div class="space-y-2">
+                            <button onclick="manageTemplate('welcome')"
+                                class="w-full text-left p-2 hover:bg-gray-50 rounded-lg text-sm">
+                                👋 Mensagem de Boas-vindas
+                            </button>
+                            <button onclick="manageTemplate('reminder')"
+                                class="w-full text-left p-2 hover:bg-gray-50 rounded-lg text-sm">
+                                ⏰ Lembrete de Vencimento
+                            </button>
+                            <button onclick="manageTemplate('overdue')"
+                                class="w-full text-left p-2 hover:bg-gray-50 rounded-lg text-sm">
+                                🚨 Cobrança de Atraso
+                            </button>
+                            <button onclick="manageTemplate('receipt')"
+                                class="w-full text-left p-2 hover:bg-gray-50 rounded-lg text-sm">
+                                🧾 Confirmação de Pagamento
+                            </button>
+                            <button onclick="manageTemplate('holiday')"
+                                class="w-full text-left p-2 hover:bg-gray-50 rounded-lg text-sm">
+                                🏖️ Aviso de Férias
+                            </button>
+                            <button onclick="createNewTemplate()"
+                                class="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm">
+                                ➕ Criar Novo Template
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                            <span>📈</span>
+                            <span>Analytics</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Mensagens hoje</span>
+                                <span class="font-semibold">47</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Taxa de entrega</span>
+                                <span class="font-semibold text-green-600">98.5%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Taxa de leitura</span>
+                                <span class="font-semibold text-blue-600">87.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Respostas recebidas</span>
+                                <span class="font-semibold">23</span>
+                            </div>
+                            <button onclick="viewDetailedAnalytics()"
+                                class="w-full mt-3 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm">
+                                📊 Relatório Completo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Templates -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4">Modelos de Mensagem</h3>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-medium">Lembrete de Vencimento</h4>
+                                    <button onclick="editTemplate('lembrete')"
+                                        class="text-blue-600 hover:text-blue-800">✏️</button>
+                                </div>
+                                <p class="text-sm text-gray-600">Olá {nome_responsavel}! A mensalidade do(a)
+                                    {nome_passageiro} vence em {dias} dias. Valor: R$ {valor}.</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-medium">Cobrança de Atraso</h4>
+                                    <button onclick="editTemplate('cobranca')"
+                                        class="text-blue-600 hover:text-blue-800">✏️</button>
+                                </div>
+                                <p class="text-sm text-gray-600">Olá {nome_responsavel}! A mensalidade do(a)
+                                    {nome_passageiro} está em atraso. Por favor, regularize o pagamento.</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-medium">Confirmação de Pagamento</h4>
+                                    <button onclick="editTemplate('confirmacao')"
+                                        class="text-blue-600 hover:text-blue-800">✏️</button>
+                                </div>
+                                <p class="text-sm text-gray-600">Pagamento confirmado! Obrigado por manter a mensalidade
+                                    do(a) {nome_passageiro} em dia.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-4">Envio de Mensagens</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Mensagem</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                    <option>Lembrete de Vencimento</option>
+                                    <option>Cobrança de Atraso</option>
+                                    <option>Confirmação de Pagamento</option>
+                                    <option>Mensagem Personalizada</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Destinatários</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                    <option>Todos os Responsáveis</option>
+                                    <option>Apenas Pendências</option>
+                                    <option>Apenas Atrasos</option>
+                                    <option>Selecionar Específicos</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Mensagem</label>
+                                <textarea class="w-full border border-gray-300 rounded-lg px-4 py-2 h-24"
+                                    placeholder="Digite sua mensagem..."></textarea>
+                            </div>
+                            <button onclick="sendBulkMessage()"
+                                class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium">
+                                📱 Enviar Mensagens
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message History -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">Histórico de Mensagens</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Lembrete enviado para Maria Silva</p>
+                                <p class="text-sm text-gray-500">Mensalidade Ana Silva - Hoje às 14:30</p>
+                            </div>
+                            <span class="text-sm text-green-600">Entregue</span>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="text-orange-600">⏳</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Cobrança enviada para Ana Oliveira</p>
+                                <p class="text-sm text-gray-500">Mensalidade Maria Oliveira - Ontem às 09:15</p>
+                            </div>
+                            <span class="text-sm text-orange-600">Pendente</span>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600">📄</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium">Recibo enviado para João Santos</p>
+                                <p class="text-sm text-gray-500">Pagamento Carlos Santos - 2 dias atrás</p>
+                            </div>
+                            <span class="text-sm text-green-600">Entregue</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configurações Section -->
+            <div id="configuracoes" class="section hidden">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Configurações do Sistema</h2>
+                    <p class="text-gray-600">Personalize e configure seu aplicativo</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Configurações Gerais -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                            <span>🎨</span>
+                            <span>Aparência</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Modo Escuro</p>
+                                    <p class="text-sm text-gray-500">Ativar tema escuro para reduzir o cansaço visual
+                                    </p>
+                                </div>
+                                <button onclick="toggleTheme()"
+                                    class="theme-toggle w-12 h-6 bg-gray-300 rounded-full p-1 flex items-center">
+                                    <div
+                                        class="toggle-circle w-4 h-4 bg-white rounded-full shadow-md flex items-center justify-center">
+                                        <span class="text-xs">🌙</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações de Performance -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                            <span>⚡</span>
+                            <span>Performance</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Animações</p>
+                                    <p class="text-sm text-gray-500">Ativar animações e transições suaves</p>
+                                </div>
+                                <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Carregamento Rápido</p>
+                                    <p class="text-sm text-gray-500">Otimizar velocidade de carregamento</p>
+                                </div>
+                                <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Itens por Página</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option selected>50</option>
+                                    <option>100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações de Notificação -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                            <span>🔔</span>
+                            <span>Notificações</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Lembretes de Vencimento</p>
+                                    <p class="text-sm text-gray-500">Notificar sobre mensalidades próximas ao vencimento
+                                    </p>
+                                </div>
+                                <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Pagamentos Recebidos</p>
+                                    <p class="text-sm text-gray-500">Notificar quando um pagamento for confirmado</p>
+                                </div>
+                                <input type="checkbox" checked class="w-5 h-5 text-blue-600 rounded">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Novos Passageiros</p>
+                                    <p class="text-sm text-gray-500">Notificar sobre novos cadastros</p>
+                                </div>
+                                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações de Backup -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+                            <span>💾</span>
+                            <span>Backup e Dados</span>
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-medium mb-2">Backup Automático</p>
+                                <p class="text-sm text-gray-500 mb-3">Seus dados são salvos automaticamente no navegador
+                                </p>
+                                <div class="flex space-x-2">
+                                    <button onclick="exportData()"
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+                                        📤 Exportar Dados
+                                    </button>
+                                    <button onclick="importData()"
+                                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">
+                                        📥 Importar Dados
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4">
+                                <p class="font-medium mb-2 text-red-600">Zona de Perigo</p>
+                                <button onclick="clearAllData()"
+                                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm">
+                                    🗑️ Limpar Todos os Dados
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão de Aplicar Configurações -->
+                <div class="mt-6 flex justify-center">
+                    <button onclick="applySettings()"
+                        class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium flex items-center space-x-2">
+                        <span>✅</span>
+                        <span>Aplicar Todas as Configurações</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Novo Passageiro -->
+    <div id="novoPassageiro" class="modal">
+        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">Novo Cadastro de Passageiros</h3>
+                <button onclick="closeModal('novoPassageiro')" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <form class="space-y-6">
+                <!-- Dados do Responsável -->
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                        <span>👤</span>
+                        <span>Dados do Responsável</span>
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Responsável *</label>
+                            <input id="nomeResponsavel" type="text"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                placeholder="Nome do responsável" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Telefone *</label>
+                            <input id="telefoneResponsavel" type="tel"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="(11) 99999-9999"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Endereço *</label>
+                        <input id="enderecoResponsavel" type="text"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="Endereço completo"
+                            required>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Bairro *</label>
+                            <select id="bairroResponsavel" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                                required>
+                                <option value="">Selecione o bairro</option>
+                                <option value="centro">Centro</option>
+                                <option value="jardim-america">Jardim América</option>
+                                <option value="vila-nova">Vila Nova</option>
+                                <option value="santa-monica">Santa Mônica</option>
+                                <option value="parque-industrial">Parque Industrial</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Valor Base da Mensalidade
+                                *</label>
+                            <input id="valorBaseMensalidade" type="text"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2" placeholder="R$ 200,00"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passageiros -->
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-lg font-semibold flex items-center space-x-2">
+                            <span>👶</span>
+                            <span>Passageiros</span>
+                        </h4>
+                        <button type="button" onclick="addIrmao()"
+                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center space-x-2">
+                            <span>➕</span>
+                            <span>Adicionar Irmão</span>
+                        </button>
+                    </div>
+
+                    <div id="passageirosList">
+                        <!-- Primeiro passageiro (sempre presente) -->
+                        <div class="passageiro-item border border-gray-200 rounded-lg p-4 mb-4 bg-white">
+                            <div class="flex justify-between items-center mb-3">
+                                <h5 class="font-medium text-gray-800">1º Passageiro</h5>
+                                <span class="text-sm text-green-600 font-medium">Valor integral</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo *</label>
+                                    <input type="text"
+                                        class="passageiro-nome w-full border border-gray-300 rounded-lg px-4 py-2"
+                                        placeholder="Nome completo" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Idade *</label>
+                                    <input type="number"
+                                        class="passageiro-idade w-full border border-gray-300 rounded-lg px-4 py-2"
+                                        placeholder="Idade" min="3" max="18" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Escola *</label>
+                                    <select class="passageiro-escola w-full border border-gray-300 rounded-lg px-4 py-2"
+                                        required>
+                                        <option value="">Selecione a escola</option>
+                                        <option value="escola-1">Èrico Verissimo</option>
+                                        <option value="escola-2">Piero Sassi</option>
+                                        <option value="escola-3">Arruda</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo Financeiro -->
+                <div class="bg-yellow-50 rounded-lg p-4">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center space-x-2">
+                        <span>💰</span>
+                        <span>Resumo Financeiro</span>
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600">Total de Passageiros</p>
+                            <p id="totalPassageiros" class="text-2xl font-bold text-blue-600">1</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600">Desconto Aplicado</p>
+                            <p id="descontoAplicado" class="text-2xl font-bold text-orange-600">R$ 0,00</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600">Valor Total Mensal</p>
+                            <p id="valorTotalMensal" class="text-2xl font-bold text-green-600">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-100 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <strong>💡 Política de Desconto:</strong><br>
+                            • 1º filho: Valor integral<br>
+                            • 2º filho: 15% de desconto<br>
+                            • 3º filho em diante: 25% de desconto
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" onclick="closeModal('novoPassageiro')"
+                        class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" onclick="savePassageiroFamily()"
+                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Salvar Família</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Registrar Pagamento -->
+    <div id="registrarPagamento" class="modal">
+        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">Registrar Pagamento</h3>
+                <button onclick="closeModal('registrarPagamento')" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Passageiro</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <option>Carlos Santos</option>
+                        <option>Maria Oliveira</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Valor</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2"
+                        placeholder="R$ 180,00">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Data do Pagamento</label>
+                    <input type="date" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Método de Pagamento</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <option>Dinheiro</option>
+                        <option>PIX</option>
+                        <option>Cartão</option>
+                        <option>Transferência</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" onclick="closeModal('registrarPagamento')"
+                        class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" onclick="savePagamento()"
+                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Alterar Status -->
+    <div id="changeStatusModal" class="modal">
+        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold">Alterar Status do Passageiro</h3>
+                <button onclick="closeModal('changeStatusModal')" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <div class="space-y-4">
+                <div class="text-center">
+                    <p class="text-lg font-medium">Passageiro: <span id="statusPassageiroNome"
+                            class="text-blue-600"></span></p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Novo Status</label>
+                    <select id="newStatusSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="ativo">🟢 Ativo</option>
+                        <option value="inativo">🔴 Inativo</option>
+                        <option value="ferias">🟡 Férias</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Motivo da Alteração (Opcional)</label>
+                    <textarea id="statusChangeReason" class="w-full border border-gray-300 rounded-lg px-4 py-2 h-20"
+                        placeholder="Digite o motivo da alteração..."></textarea>
+                </div>
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" onclick="closeModal('changeStatusModal')"
+                        class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancelar</button>
+                    <button type="button" onclick="saveStatusChange()"
+                        class="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">Alterar
+                        Status</button>
+                </div>
+            </div>
+            <input type="hidden" id="currentStatusInput" value="">
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'96e37e12000e0353',t:'MTc1NTAzODYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
