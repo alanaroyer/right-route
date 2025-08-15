@@ -4,10 +4,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
 .card-hover {
     transition: all 0.3s ease;
 }
@@ -17,33 +13,28 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.status-ativo {
-    background-color: #10b981;
-}
-
-.status-inativo {
-    background-color: #ef4444;
-}
-
-.status-ferias {
-    background-color: #f59e0b;
-}
-
+.status-ativo,
 .status-pago {
     background-color: #10b981;
 }
 
-.status-pendente {
-    background-color: #f59e0b;
-}
-
+.status-inativo,
 .status-atrasado {
     background-color: #ef4444;
 }
 
+.status-ferias,
+.status-pendente {
+    background-color: #f5d60b;
+}
+
 .sidebar-active {
-    background-color: #667eea;
+    background-color: #66beea;
     color: white;
+}
+
+.sidebar-btn.hover\:bg-gray-50:hover{
+    color: #4f46e5;
 }
 
 .modal {
@@ -89,60 +80,267 @@ body {
         transform: translateX(0);
     }
 }
+/* =============================================== */
+/* ================== header ===================== */
+/* =============================================== */
+/* Estilos base do app */
+.app-bg {
+    background-color: #f9fafb;
+    /* bg-gray-50 */
+}
 
-/* Dark mode styles */
+/* Estilos do header */
+.app-header {
+    background: linear-gradient(135deg, #c4e0e5 0%, #4ca1af 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    /* Alinha os itens nas extremidades */
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .header-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* Ajustamos o gap dos botões */
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+/* Logo e título */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    /* space-x-3 */
+    margin-left: 3rem;
+    /* ml-12 */
+}
+
+@media (min-width: 1024px) {
+    .logo-container {
+        margin-left: 0;
+        /* lg:ml-0 */
+    }
+}
+
+.logo-icon {
+    width: 2rem;
+    /* w-8 */
+    height: 2rem;
+    /* h-8 */
+    background-color: white;
+    border-radius: 0.5rem;
+    /* rounded-lg */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon span {
+    font-size: 1.25rem;
+    /* text-xl */
+}
+
+@media (min-width: 1024px) {
+    .logo-icon {
+        width: 2.5rem;
+        /* lg:w-10 */
+        height: 2.5rem;
+        /* lg:h-10 */
+    }
+
+    .logo-icon span {
+        font-size: 1.5rem;
+        /* lg:text-2xl */
+    }
+}
+
+.logo-text h1 {
+    font-size: 1.25rem;
+    /* text-xl */
+    font-weight: 700;
+    /* font-bold */
+    line-height: 1.75rem;
+}
+
+.logo-text p {
+    font-size: 0.75rem;
+    /* text-xs */
+    opacity: 0.9;
+    /* opacity-90 */
+    display: none;
+    /* hidden */
+}
+
+@media (min-width: 640px) {
+    .logo-text p {
+        display: block;
+        /* sm:block */
+    }
+}
+
+@media (min-width: 1024px) {
+    .logo-text h1 {
+        font-size: 1.5rem;
+        /* lg:text-2xl */
+    }
+
+    .logo-text p {
+        font-size: 0.875rem;
+        /* lg:text-sm */
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .header-actions {
+        gap: 1rem;
+        /* lg:space-x-4 */
+    }
+}
+
+.theme-btn,
+.refresh-btn {
+    width: 2rem;
+    /* w-8 */
+    height: 2rem;
+    /* h-8 */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* bg-white bg-opacity-20 */
+    border-radius: 9999px;
+    /* rounded-full */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    /* transition-all */
+}
+
+.theme-btn:hover,
+.refresh-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    /* hover:bg-opacity-30 */
+}
+
+.theme-icon {
+    font-size: 1.125rem;
+    /* text-lg */
+}
+
+@media (min-width: 1024px) {
+
+    .theme-btn,
+    .refresh-btn {
+        width: 2.5rem;
+        /* lg:w-10 */
+        height: 2.5rem;
+        /* lg:h-10 */
+    }
+
+    .theme-icon {
+        font-size: 1.25rem;
+        /* lg:text-xl */
+    }
+}
+
+
+/* =============================================== */
+/* ================= dark mode =================== */
+/* =============================================== */
+
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark input[type="password"],
+.dark select,
+.dark textarea {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #4a4a4a;
+}
+
+.dark .sidebar-btn:hover {
+    background-color: #333333;
+}
+
 .dark {
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: #121212;
+    color: #972020;
 }
 
 .dark .bg-gray-50 {
-    background-color: #1a1a1a;
+    background-color: #1e1e1e;
 }
 
 .dark .bg-white {
-    background-color: #2d2d2d;
+    background-color: #1e1e1e;
     color: #ffffff;
+    border-color: #333333;
 }
 
-.dark .text-gray-800 {
-    color: #ffffff;
+.dark .text-gray-800,
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-gray-700 {
+    color: #e0e0e0;
 }
 
-.dark .text-gray-600 {
-    color: #b3b3b3;
-}
-
-.dark .text-gray-500 {
-    color: #999999;
-}
-
-.dark .border-gray-200 {
-    border-color: #404040;
-}
-
+.dark .border-gray-200,
 .dark .border-gray-300 {
-    border-color: #404040;
+    border-color: #333333;
 }
 
-.dark .bg-gray-50 {
-    background-color: #2a2a2a;
+.dark .bg-gray-100 {
+    background-color: #2d2d2d;
 }
 
-.dark .hover\:bg-gray-50:hover {
-    background-color: #3a3a3a;
-}
-
+.dark .hover\:bg-gray-50:hover,
 .dark .hover\:bg-gray-100:hover {
-    background-color: #3a3a3a;
+    background-color: #333333;
 }
 
 .dark .divide-gray-200> :not([hidden])~ :not([hidden]) {
-    border-color: #404040;
+    border-color: #333333;
+}
+
+.dark .sidebar-active {
+    background-color: #2563eb;
+    color: white;
+}
+
+.dark .card-hover:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark .modal {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dark .notification {
+    background-color: #0d9488;
+    color: white;
 }
 
 .theme-toggle {
     transition: all 0.3s ease;
+    background-color: #e2e8f0;
 }
 
 .theme-toggle.dark {
@@ -151,8 +349,10 @@ body {
 
 .theme-toggle.dark .toggle-circle {
     transform: translateX(24px);
+    background-color: #ffffff;
 }
 
 .toggle-circle {
     transition: transform 0.3s ease;
+    background-color: #4f46e5;
 }

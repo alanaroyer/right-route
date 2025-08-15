@@ -1,0 +1,54 @@
+[debug] [2025-08-13T13:19:14.839Z] ----------------------------------------------------------------------
+[debug] [2025-08-13T13:19:14.843Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Desktop\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2025-08-13T13:19:14.844Z] CLI Version:   14.12.0
+[debug] [2025-08-13T13:19:14.844Z] Platform:      win32
+[debug] [2025-08-13T13:19:14.844Z] Node Version:  v22.16.0
+[debug] [2025-08-13T13:19:14.844Z] Time:          Wed Aug 13 2025 10:19:14 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2025-08-13T13:19:14.844Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-08-13T13:19:14.848Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-08-13T13:19:14.911Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-13T13:19:14.911Z] > authorizing via signed-in user (alanar0y3r@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Desktop\Desktop\rota_certa
+
+[debug] [2025-08-13T13:19:15.314Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-08-13T13:19:15.314Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-08-13T13:21:40.060Z] Checked if tokens are valid: false, expires at: 1751928792005
+[debug] [2025-08-13T13:21:40.060Z] Checked if tokens are valid: false, expires at: 1751928792005
+[debug] [2025-08-13T13:21:40.061Z] > refreshing access token with scopes: []
+[debug] [2025-08-13T13:21:40.062Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-08-13T13:21:40.063Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-08-13T13:21:40.299Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-08-13T13:21:40.299Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-08-13T13:21:40.323Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2025-08-13T13:21:41.150Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-08-13T13:21:41.150Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project rota-certa-0000 (Rota-certa) 
+[info] 
+=== Hosting Setup
+[debug] [2025-08-13T13:21:46.224Z] Checked if tokens are valid: true, expires at: 1755094899299
+[debug] [2025-08-13T13:21:46.224Z] Checked if tokens are valid: true, expires at: 1755094899299
+[debug] [2025-08-13T13:21:46.225Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rota-certa-0000 [none]
+[debug] [2025-08-13T13:21:46.713Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rota-certa-0000 200
+[debug] [2025-08-13T13:21:46.714Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rota-certa-0000 {"projectId":"rota-certa-0000","projectNumber":"359266088721","displayName":"Rota-certa","name":"projects/rota-certa-0000","resources":{"hostingSite":"rota-certa-0000"},"state":"ACTIVE","etag":"1_952c7cac-08d9-4ae8-9494-09ef6a626a07"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

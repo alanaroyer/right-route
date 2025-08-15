@@ -1,4 +1,4 @@
- // Mobile menu functions
+
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
@@ -132,15 +132,12 @@
 
             // Save updated data
             if (saveToStorage('passageiros', passageiros)) {
-                // A LINHA ABAIXO SERÁ SUBSTITUÍDA
-                // updatePassengerStatusInUI(nome, newStatus);  
-            renderPassageiros();
-            updateDashboardStats();   
-            showNotification(`Status de ${nome} alterado para ${statusNames[newStatus]} e salvo!`);
+                // Update UI to reflect the status change
+                updatePassengerStatusInUI(nome, newStatus);
+                showNotification(`Status de ${nome} alterado para ${statusNames[newStatus]} e salvo!`);
+            } else {
+                showNotification('Erro ao salvar alteração de status!');
             }
-            else {
-            showNotification('Erro ao salvar alteração de status!');
-            } 
 
             closeModal('changeStatusModal');
 
@@ -182,31 +179,17 @@
         // Variável global para controlar o número de passageiros
         let passageiroCounter = 1;
 
-        function addIrmao() {
+        function addPassageiro() {
             passageiroCounter++;
             const passageirosList = document.getElementById('passageirosList');
-
-            // Calcular desconto
-            let desconto = '';
-            let descontoTexto = '';
-            if (passageiroCounter === 2) {
-                desconto = '15%';
-                descontoTexto = '15% de desconto';
-            } else if (passageiroCounter >= 3) {
-                desconto = '25%';
-                descontoTexto = '25% de desconto';
-            }
 
             const novoPassageiroHTML = `
                 <div class="passageiro-item border border-gray-200 rounded-lg p-4 mb-4 bg-white">
                     <div class="flex justify-between items-center mb-3">
                         <h5 class="font-medium text-gray-800">${passageiroCounter}º Passageiro</h5>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm text-orange-600 font-medium">${descontoTexto}</span>
-                            <button type="button" onclick="removeIrmao(this)" class="text-red-600 hover:text-red-800 p-1" title="Remover passageiro">
-                                🗑️
-                            </button>
-                        </div>
+                        <button type="button" onclick="removePassageiro(this)" class="text-red-600 hover:text-red-800 p-1" title="Remover passageiro">
+                            🗑️
+                        </button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
@@ -221,9 +204,9 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Escola *</label>
                             <select class="passageiro-escola w-full border border-gray-300 rounded-lg px-4 py-2" required>
                                 <option value="">Selecione a escola</option>
-                                <option value="escola-municipal">Escola Municipal</option>
-                                <option value="colegio-sao-jose">Colégio São José</option>
-                                <option value="escola-estadual">Escola Estadual</option>
+                                <option value="erico-verissimo">Érico Veríssimo</option>
+                                <option value="arruda">Arruda</option>
+                                <option value="piero-sassi">Piero Sassi</option>
                             </select>
                         </div>
                     </div>
@@ -232,10 +215,10 @@
 
             passageirosList.insertAdjacentHTML('beforeend', novoPassageiroHTML);
             updateFinancialSummary();
-            showNotification(`${passageiroCounter}º irmão adicionado com ${descontoTexto}!`);
+            showNotification(`${passageiroCounter}º passageiro adicionado!`);
         }
 
-        function removeIrmao(button) {
+        function removePassageiro(button) {
             if (passageiroCounter <= 1) {
                 showNotification('Deve haver pelo menos um passageiro!');
                 return;
@@ -250,19 +233,6 @@
                 const numero = index + 1;
                 const titulo = item.querySelector('h5');
                 titulo.textContent = `${numero}º Passageiro`;
-
-                // Atualizar desconto
-                const descontoSpan = item.querySelector('.text-orange-600, .text-green-600');
-                if (numero === 1) {
-                    descontoSpan.textContent = 'Valor integral';
-                    descontoSpan.className = 'text-sm text-green-600 font-medium';
-                } else if (numero === 2) {
-                    descontoSpan.textContent = '15% de desconto';
-                    descontoSpan.className = 'text-sm text-orange-600 font-medium';
-                } else {
-                    descontoSpan.textContent = '25% de desconto';
-                    descontoSpan.className = 'text-sm text-orange-600 font-medium';
-                }
             });
 
             updateFinancialSummary();
@@ -273,27 +243,11 @@
             const valorBaseInput = document.getElementById('valorBaseMensalidade');
             const valorBase = parseFloat(valorBaseInput.value.replace(/[R$\s]/g, '').replace(',', '.')) || 0;
 
-            let valorTotal = 0;
-            let descontoTotal = 0;
-
-            // Calcular valores com desconto
-            for (let i = 1; i <= passageiroCounter; i++) {
-                if (i === 1) {
-                    valorTotal += valorBase; // Valor integral
-                } else if (i === 2) {
-                    const valorComDesconto = valorBase * 0.85; // 15% desconto
-                    valorTotal += valorComDesconto;
-                    descontoTotal += valorBase - valorComDesconto;
-                } else {
-                    const valorComDesconto = valorBase * 0.75; // 25% desconto
-                    valorTotal += valorComDesconto;
-                    descontoTotal += valorBase - valorComDesconto;
-                }
-            }
+            // Valor total = valor base × número de passageiros
+            const valorTotal = valorBase * passageiroCounter;
 
             // Atualizar interface
             document.getElementById('totalPassageiros').textContent = passageiroCounter;
-            document.getElementById('descontoAplicado').textContent = `R$ ${descontoTotal.toFixed(2).replace('.', ',')}`;
             document.getElementById('valorTotalMensal').textContent = `R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
         }
 
@@ -328,15 +282,8 @@
                     return;
                 }
 
-                // Calcular valor individual
+                // Valor individual igual para todos
                 const valorBaseNum = parseFloat(valorBase.replace(/[R$\s]/g, '').replace(',', '.'));
-                let valorIndividual = valorBaseNum;
-
-                if (i === 1) { // 2º filho
-                    valorIndividual = valorBaseNum * 0.85;
-                } else if (i >= 2) { // 3º filho em diante
-                    valorIndividual = valorBaseNum * 0.75;
-                }
 
                 const passageiro = {
                     id: familyId + i, // ID único baseado na família
@@ -350,11 +297,10 @@
                     },
                     endereco: endereco,
                     bairro: bairro,
-                    mensalidade: `R$ ${valorIndividual.toFixed(2).replace('.', ',')}`,
+                    mensalidade: `R$ ${valorBaseNum.toFixed(2).replace('.', ',')}`,
                     valorOriginal: valorBase,
-                    desconto: i === 0 ? 0 : (i === 1 ? 15 : 25),
                     posicaoFamilia: i + 1,
-                    totalIrmaos: passageiroCounter,
+                    totalPassageiros: passageiroCounter,
                     status: 'ativo',
                     dataCadastro: new Date().toISOString(),
                     pagamentos: []
@@ -375,14 +321,6 @@
                 document.getElementById('bairroResponsavel').value = '';
                 document.getElementById('valorBaseMensalidade').value = '';
 
-                passageiroCounter = 1;
-                updateFinancialSummary();
-                updateDashboardStats(); // <-- Esta já atualiza o dashboard
-                
-                // >>> ADICIONE ESTA LINHA ABAIXO <<<
-                renderPassageiros(); // Atualiza a lista de passageiros na tela
-                closeModal('novoPassageiro');
-                
                 // Resetar lista de passageiros
                 const passageirosList = document.getElementById('passageirosList');
                 passageirosList.innerHTML = `
@@ -420,9 +358,8 @@
                 closeModal('novoPassageiro');
 
                 const totalPassageiros = passageiros.length;
-                const valorTotalFamilia = passageiros.reduce((total, p) => {
-                    return total + parseFloat(p.mensalidade.replace(/[R$\s]/g, '').replace(',', '.'));
-                }, 0);
+                const valorIndividual = parseFloat(valorBase.replace(/[R$\s]/g, '').replace(',', '.'));
+                const valorTotalFamilia = valorIndividual * totalPassageiros;
 
                 showNotification(`Família cadastrada! ${totalPassageiros} passageiro(s) - Total: R$ ${valorTotalFamilia.toFixed(2).replace('.', ',')}`);
             } else {
@@ -600,6 +537,9 @@
                     timestamp: new Date().toISOString()
                 },
                 passageiros: [
+                    { nome: 'Ana Silva', escola: 'Escola Municipal', status: 'Ativo' },
+                    { nome: 'Carlos Santos', escola: 'Colégio São José', status: 'Férias' },
+                    { nome: 'Maria Oliveira', escola: 'Escola Estadual', status: 'Ativo' }
                 ]
             };
 
@@ -646,15 +586,18 @@
         function applyTheme() {
             const body = document.body;
             const toggles = document.querySelectorAll('.theme-toggle');
+            const toggleIcons = document.querySelectorAll('.toggle-icon');
             const toggleCircles = document.querySelectorAll('.toggle-circle span');
 
             if (isDarkMode) {
                 body.classList.add('dark');
                 toggles.forEach(toggle => toggle.classList.add('dark'));
+                toggleIcons.forEach(icon => icon.textContent = '☀️');
                 toggleCircles.forEach(circle => circle.textContent = '☀️');
             } else {
                 body.classList.remove('dark');
                 toggles.forEach(toggle => toggle.classList.remove('dark'));
+                toggleIcons.forEach(icon => icon.textContent = '🌙');
                 toggleCircles.forEach(circle => circle.textContent = '🌙');
             }
         }
@@ -748,32 +691,7 @@
             }
         }
 
-
-            // Update active sidebar color
-            const activeBtn = document.querySelector('.sidebar-active');
-            if (activeBtn) {
-                activeBtn.style.backgroundColor = colorMap[color];
-            }
-
-            // Update color selection border
-            document.querySelectorAll('[onclick*="changeThemeColor"]').forEach(btn => {
-                btn.classList.remove('border-blue-800', 'border-green-800', 'border-red-800', 'border-yellow-700');
-                btn.classList.add('border-transparent');
-            });
-
-            const selectedBtn = document.querySelector(`[onclick="changeThemeColor('${color}')"]`);
-            if (selectedBtn) {
-                selectedBtn.classList.remove('border-transparent');
-                if (color === 'yellow') {
-                    selectedBtn.classList.add('border-yellow-700');
-                } else {
-                    selectedBtn.classList.add(`border-${color}-800`);
-                }
-            }
-
-            // Save to storage
-            saveToStorage('themeColor', color);
-            showNotification(`Tema alterado para ${colorNames[color]} e salvo!`);
+        // Theme color is fixed to blue
 
         function applySettings() {
             showNotification('Aplicando todas as configurações...');
@@ -783,7 +701,6 @@
 
                 // Save all settings to localStorage
                 const settings = {
-                    darkMode: isDarkMode,
                     notifications: {
                         vencimento: document.querySelector('input[type="checkbox"]').checked,
                         pagamentos: document.querySelectorAll('input[type="checkbox"]')[1].checked,
@@ -795,14 +712,8 @@
             }, 1500);
         }
 
-        // Initialize theme and load saved data on page load
+        // Initialize app and load saved data on page load
         document.addEventListener('DOMContentLoaded', function () {
-            // Load saved theme
-            const savedThemeColor = loadFromStorage('themeColor');
-            if (savedThemeColor) {
-                changeThemeColor(savedThemeColor);
-            }
-
             // Load saved dark mode preference
             const savedDarkMode = loadFromStorage('darkMode');
             if (savedDarkMode !== null) {
@@ -843,15 +754,6 @@
                 }
             }
         }
-            
-            // Load and update dashboard stats
-        updateDashboardStats();
-        
-        // >>> ADICIONE ESTA LINHA ABAIXO <<<
-        renderPassageiros(); // Desenha a lista de passageiros na tela
-
-        // Load other saved settings
-        loadSavedSettings();
 
         // Add CSS animation for refresh button
         const style = document.createElement('style');
@@ -861,110 +763,5 @@
                 to { transform: rotate(360deg); }
             }
         `;
-document.head.appendChild(style);
-        function renderPassageiros() {
-    const passageiros = loadFromStorage('passageiros') || [];
-    const tableBody = document.getElementById('passageirosTableBody');
-    const cardContainer = document.getElementById('passageirosCardContainer');
-
-    // Limpa o conteúdo atual para não duplicar
-    tableBody.innerHTML = '';
-    cardContainer.innerHTML = '';
-
-    if (passageiros.length === 0) {
-        // Mensagem para quando não há passageiros
-        const emptyRow = `<tr><td colspan="6" class="text-center py-10 text-gray-500">Nenhum passageiro cadastrado ainda.</td></tr>`;
-        const emptyCard = `<div class="p-6 text-center text-gray-500">Nenhum passageiro cadastrado ainda.</div>`;
-        tableBody.innerHTML = emptyRow;
-        cardContainer.innerHTML = emptyCard;
-        return;
-    }
-
-    passageiros.forEach(p => {
-        // Define as classes de cor para o status
-        const statusClasses = {
-            ativo: 'status-ativo',
-            inativo: 'status-inativo',
-            ferias: 'status-ferias'
-        };
-        const statusText = {
-            ativo: 'Ativo',
-            inativo: 'Inativo',
-            ferias: 'Férias'
-        };
-
-        const statusClass = statusClasses[p.status] || 'bg-gray-400';
-        const statusName = statusText[p.status] || 'Desconhecido';
-        const iniciais = p.nome.split(' ').map(n => n[0]).slice(0, 2).join('');
-
-        // HTML para a linha da tabela (Desktop)
-        const rowHTML = `
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-blue-600 font-semibold">${iniciais}</span>
-                        </div>
-                        <div>
-                            <p class="font-medium">${p.nome}</p>
-                            <p class="text-sm text-gray-500">${p.idade} anos</p>
-                        </div>
-                    </div>
-                </td>
-                <td class="px-6 py-4">
-                    <p class="font-medium">${p.responsavel.nome}</p>
-                    <p class="text-sm text-gray-500">${p.responsavel.telefone}</p>
-                </td>
-                <td class="px-6 py-4">${p.escola}</td>
-                <td class="px-6 py-4">
-                    <span class="${statusClass} text-white px-3 py-1 rounded-full text-sm">${statusName}</span>
-                </td>
-                <td class="px-6 py-4">${p.mensalidade}</td>
-                <td class="px-6 py-4">
-                    <div class="flex space-x-2">
-                        <button onclick="editPassageiro('${p.nome}')" class="text-green-600 hover:text-green-800" title="Editar">✏️</button>
-                        <button onclick="changeStatus('${p.nome}', '${p.status}')" class="text-orange-600 hover:text-orange-800" title="Alterar Status">🔄</button>
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        // HTML para o cartão (Mobile)
-        const cardHTML = `
-            <div class="p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-blue-600 font-semibold">${iniciais}</span>
-                        </div>
-                        <div>
-                            <p class="font-medium">${p.nome}</p>
-                            <p class="text-sm text-gray-500">${p.idade} anos</p>
-                        </div>
-                    </div>
-                    <span class="${statusClass} text-white px-3 py-1 rounded-full text-sm">${statusName}</span>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-sm mb-3">
-                    <div>
-                        <p class="text-gray-500">Responsável:</p>
-                        <p class="font-medium">${p.responsavel.nome}</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-500">Mensalidade:</p>
-                        <p class="font-medium">${p.mensalidade}</p>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <p class="text-sm text-gray-500">${p.escola}</p>
-                    <div class="flex space-x-3">
-                        <button onclick="editPassageiro('${p.nome}')" class="text-green-600" title="Editar">✏️</button>
-                        <button onclick="changeStatus('${p.nome}', '${p.status}')" class="text-orange-600" title="Alterar Status">🔄</button>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        tableBody.innerHTML += rowHTML;
-        cardContainer.innerHTML += cardHTML;
-    });
-}
+        document.head.appendChild(style);
+    

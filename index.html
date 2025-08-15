@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,48 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-
-<body class="bg-gray-50">
+<body class="bg">
     <!-- Notification -->
     <div id="notification" class="notification"></div>
 
-    <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
-        <div class="container mx-auto px-4 lg:px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3 ml-12 lg:ml-0">
-                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-lg flex items-center justify-center">
-                        <span class="text-xl lg:text-2xl">🚌</span>
-                    </div>
-                    <div>
-                        <h1 class="text-xl lg:text-2xl font-bold">Rota Certa</h1>
-                        <p class="text-xs lg:text-sm opacity-90 hidden sm:block">Gestão de Transporte Escolar</p>
-                    </div>
+<!--========================  Header  ===========================-->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <span>🚌</span>
                 </div>
-                <div class="flex items-center space-x-2 lg:space-x-4">
-                    <!-- Theme Toggle -->
-                    <button onclick="toggleTheme()"
-                        class="theme-toggle w-12 h-6 bg-gray-300 rounded-full p-1 flex items-center">
-                        <div
-                            class="toggle-circle w-4 h-4 bg-white rounded-full shadow-md flex items-center justify-center">
-                            <span class="text-xs">🌙</span>
-                        </div>
-                    </button>
-
-                    <!-- Refresh Button -->
-                    <button onclick="refreshApp()"
-                        class="w-8 h-8 lg:w-10 lg:h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
-                        <span class="text-lg lg:text-xl">🔄</span>
-                    </button>
-
-                    <div class="text-right hidden sm:block">
-                        <p class="font-semibold text-sm lg:text-base">João Silva</p>
-                        <p class="text-xs lg:text-sm opacity-90">Motorista</p>
-                    </div>
-                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center">
-                        <span class="text-lg lg:text-xl">👤</span>
-                    </div>
+                <div class="logo-text">
+                    <h1>Rota Certa</h1>
+                    <p>Gestão de Transporte Escolar</p>
                 </div>
+            </div>
+            <div class="header-actions">
+                <button onclick="toggleTheme()" class="theme-btn">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button onclick="refreshApp()" class="refresh-btn">
+                    <span>🔄</span>
+                </button>
             </div>
         </div>
     </header>
@@ -114,60 +94,66 @@
             <!-- Dashboard Section -->
             <div id="dashboard" class="section">
                 <div class="mb-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard</h2>
-                    <p class="text-gray-600">Visão geral do seu negócio</p>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Dashboard</h2>
+                    <p class="text-gray-600 text-sm lg:text-base">Visão geral do seu negócio</p>
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-md p-4 lg:p-6 card-hover">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-500 text-sm">Passageiros Cadastrados</p>
-                                <p id="totalPassageirosDash" class="text-3xl font-bold text-blue-600">0</p>
+                                <p class="text-gray-500 text-xs lg:text-sm">Passageiros Cadastrados</p>
+                                <p id="totalPassageirosDash" class="text-2xl lg:text-3xl font-bold text-blue-600">0</p>
                                 <p class="text-xs text-gray-400">total cadastrado</p>
                             </div>
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <span class="text-2xl">👥</span>
+                            <div
+                                class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl lg:text-2xl">👥</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="bg-white rounded-xl shadow-md p-4 lg:p-6 card-hover">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-500 text-sm">Receita Mensal</p>
-                                <p id="receitaMensalDash" class="text-3xl font-bold text-green-600">R$ 0,00</p>
+                                <p class="text-gray-500 text-xs lg:text-sm">Receita Mensal</p>
+                                <p id="receitaMensalDash" class="text-2xl lg:text-3xl font-bold text-green-600">R$ 0,00
+                                </p>
                                 <p class="text-xs text-gray-400">soma das mensalidades</p>
                             </div>
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <span class="text-2xl">💰</span>
+                            <div
+                                class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl lg:text-2xl">💰</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="bg-white rounded-xl shadow-md p-4 lg:p-6 card-hover">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-500 text-sm">Pagamentos Pendentes</p>
-                                <p class="text-3xl font-bold text-orange-600">3</p>
-                                <p class="text-xs text-gray-400">R$ 600,00</p>
+                                <p class="text-gray-500 text-xs lg:text-sm">Pagamentos Pendentes</p>
+                                <p class="text-2xl lg:text-3xl font-bold text-orange-600">0</p>
+                                <p class="text-xs text-gray-400">R$ 0,00</p>
                             </div>
-                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                                <span class="text-2xl">⏰</span>
+                            <div
+                                class="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl lg:text-2xl">⏰</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <div class="bg-white rounded-xl shadow-md p-4 lg:p-6 card-hover">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-500 text-sm">Passageiros Ativos</p>
-                                <p id="passageirosAtivosDash" class="text-3xl font-bold text-purple-600">0</p>
+                                <p class="text-gray-500 text-xs lg:text-sm">Passageiros Ativos</p>
+                                <p id="passageirosAtivosDash" class="text-2xl lg:text-3xl font-bold text-purple-600">0
+                                </p>
                                 <p class="text-xs text-gray-400">status ativo</p>
                             </div>
-                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <span class="text-2xl">✅</span>
+                            <div
+                                class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl lg:text-2xl">✅</span>
                             </div>
                         </div>
                     </div>
@@ -210,24 +196,25 @@
 
             <!-- Passageiros Section -->
             <div id="passageiros" class="section hidden">
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Gestão de Passageiros</h2>
-                        <p class="text-gray-600">Controle completo dos seus passageiros</p>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Gestão de Passageiros</h2>
+                        <p class="text-gray-600 text-sm lg:text-base">Controle completo dos seus passageiros</p>
                     </div>
                     <button onclick="openModal('novoPassageiro')"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center space-x-2">
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm lg:text-base">
                         <span>➕</span>
                         <span>Novo Passageiro</span>
                     </button>
                 </div>
 
                 <!-- Filters -->
-                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div class="bg-white rounded-xl shadow-md p-4 lg:p-6 mb-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                            <select id="statusFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <select id="statusFilter"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
                                 <option value="">Todos os Status</option>
                                 <option value="ativo">Ativo</option>
                                 <option value="inativo">Inativo</option>
@@ -236,41 +223,43 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Escola</label>
-                            <select id="escolaFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <select id="escolaFilter"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
                                 <option value="">Todas as Escolas</option>
-                                <option value="escola-1">Èrico Verissimo</option>
-                                <option value="escola-2">Piero Sassi</option>
-                                <option value="escola-3">Arruda</option>
+                                <option value="erico-verissimo">Érico Veríssimo</option>
+                                <option value="arruda">Arruda</option>
+                                <option value="piero-sassi">Piero Sassi</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
-                            <select id="bairroFilter" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                            <select id="bairroFilter"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
                                 <option value="">Todos os Bairros</option>
-                                <option value="bairro-1">Conceição</option>
-                                <option value="bairro-2">Alvorada</option>
-                                <option value="bairro-3">Passo da Areia</option>
+                                <option value="passo-dareia">Passo d'Areia</option>
+                                <option value="conceicao">Conceição</option>
+                                <option value="alvorada">Alvorada</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
                             <input id="searchInput" type="text" placeholder="Nome do passageiro..."
-                                class="w-full border border-gray-300 rounded-lg px-4 py-2">
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-col sm:flex-row gap-2">
                         <button onclick="applyFilters()"
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
                             <span>🔍</span>
                             <span>Filtrar</span>
                         </button>
                         <button onclick="clearFilters()"
-                            class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
                             <span>🗑️</span>
                             <span>Limpar</span>
                         </button>
                         <button onclick="exportFilteredData()"
-                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
+                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
                             <span>📤</span>
                             <span>Exportar</span>
                         </button>
@@ -295,111 +284,26 @@
                                     <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
                                 </tr>
                             </thead>
-                        <tbody id="passageirosTableBody" class="divide-y divide-gray-200">
-                        </tbody>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                                        <div class="flex flex-col items-center space-y-2">
+                                            <span class="text-4xl">👥</span>
+                                            <p class="text-lg font-medium">Nenhum passageiro cadastrado</p>
+                                            <p class="text-sm">Clique em "Novo Passageiro" para começar</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
 
                     <!-- Mobile Cards -->
-                    <div class="lg:hidden divide-y divide-gray-200">
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <span class="text-blue-600 font-semibold">AS</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium">Ana Silva</p>
-                                        <p class="text-sm text-gray-500">8 anos</p>
-                                    </div>
-                                </div>
-                                <span class="status-ativo text-white px-3 py-1 rounded-full text-sm">Ativo</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
-                                <div>
-                                    <p class="text-gray-500">Responsável:</p>
-                                    <p class="font-medium">Maria Silva</p>
-                                </div>
-                                <div>
-                                    <p class="text-gray-500">Mensalidade:</p>
-                                    <p class="font-medium">R$ 200,00</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="text-sm text-gray-500">Escola Municipal</p>
-                                <div class="flex space-x-3">
-                                    <button onclick="editPassageiro('Ana Silva')" class="text-green-600"
-                                        title="Editar">✏️</button>
-                                    <button onclick="changeStatus('Ana Silva', 'ativo')" class="text-orange-600"
-                                        title="Alterar Status">🔄</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                        <span class="text-green-600 font-semibold">CS</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium">Carlos Santos</p>
-                                        <p class="text-sm text-gray-500">10 anos</p>
-                                    </div>
-                                </div>
-                                <span class="status-ferias text-white px-3 py-1 rounded-full text-sm">Férias</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
-                                <div>
-                                    <p class="text-gray-500">Responsável:</p>
-                                    <p class="font-medium">João Santos</p>
-                                </div>
-                                <div>
-                                    <p class="text-gray-500">Mensalidade:</p>
-                                    <p class="font-medium">R$ 180,00</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="text-sm text-gray-500">Colégio São José</p>
-                                <div class="flex space-x-3">
-                                    <button onclick="editPassageiro('Carlos Santos')" class="text-green-600"
-                                        title="Editar">✏️</button>
-                                    <button onclick="changeStatus('Carlos Santos', 'ferias')" class="text-orange-600"
-                                        title="Alterar Status">🔄</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                                        <span class="text-orange-600 font-semibold">MO</span>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium">Maria Oliveira</p>
-                                        <p class="text-sm text-gray-500">7 anos</p>
-                                    </div>
-                                </div>
-                                <span class="status-ativo text-white px-3 py-1 rounded-full text-sm">Ativo</span>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 text-sm mb-3">
-                                <div>
-                                    <p class="text-gray-500">Responsável:</p>
-                                    <p class="font-medium">Ana Oliveira</p>
-                                </div>
-                                <div>
-                                    <p class="text-gray-500">Mensalidade:</p>
-                                    <p class="font-medium">R$ 220,00</p>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="text-sm text-gray-500">Escola Estadual</p>
-                                <div class="flex space-x-3">
-                                    <button onclick="editPassageiro('Maria Oliveira')" class="text-green-600"
-                                        title="Editar">✏️</button>
-                                    <button onclick="changeStatus('Maria Oliveira', 'ativo')" class="text-orange-600"
-                                        title="Alterar Status">🔄</button>
-                                </div>
-                            </div>
+                    <div class="lg:hidden p-6">
+                        <div class="flex flex-col items-center space-y-2 text-gray-500">
+                            <span class="text-4xl">👥</span>
+                            <p class="text-lg font-medium">Nenhum passageiro cadastrado</p>
+                            <p class="text-sm text-center">Clique em "Novo Passageiro" para começar</p>
                         </div>
                     </div>
                 </div>
@@ -408,8 +312,8 @@
             <!-- Financeiro Section -->
             <div id="financeiro" class="section hidden">
                 <div class="mb-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Gestão Financeira</h2>
-                    <p class="text-gray-600">Controle completo das suas finanças</p>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Gestão Financeira</h2>
+                    <p class="text-gray-600 text-sm lg:text-base">Controle completo das suas finanças</p>
                 </div>
 
                 <!-- Financial Stats -->
@@ -419,8 +323,8 @@
                             <h3 class="text-lg font-semibold">Pagamentos em Dia</h3>
                             <span class="text-2xl">💰</span>
                         </div>
-                        <p class="text-3xl font-bold text-green-600">R$ 4.800,00</p>
-                        <p class="text-sm text-gray-500 mt-2">+12% vs mês anterior</p>
+                        <p class="text-3xl font-bold text-green-600">R$ 0,00</p>
+                        <p class="text-sm text-gray-500 mt-2">0 mensalidades</p>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md p-6">
@@ -428,8 +332,8 @@
                             <h3 class="text-lg font-semibold">Pendências</h3>
                             <span class="text-2xl">⏰</span>
                         </div>
-                        <p class="text-3xl font-bold text-orange-600">R$ 600,00</p>
-                        <p class="text-sm text-gray-500 mt-2">3 mensalidades</p>
+                        <p class="text-3xl font-bold text-orange-600">R$ 0,00</p>
+                        <p class="text-sm text-gray-500 mt-2">0 mensalidades</p>
                     </div>
 
                     <div class="bg-white rounded-xl shadow-md p-6">
@@ -437,8 +341,8 @@
                             <h3 class="text-lg font-semibold">Em Atraso</h3>
                             <span class="text-2xl">🚨</span>
                         </div>
-                        <p class="text-3xl font-bold text-red-600">R$ 200,00</p>
-                        <p class="text-sm text-gray-500 mt-2">1 mensalidade</p>
+                        <p class="text-3xl font-bold text-red-600">R$ 0,00</p>
+                        <p class="text-sm text-gray-500 mt-2">0 mensalidades</p>
                     </div>
                 </div>
 
@@ -465,8 +369,18 @@
                                     <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Ações</th>
                                 </tr>
                             </thead>
-                            <div id="passageirosCardContainer" class="lg:hidden divide-y divide-gray-200">
-                            </div>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                                        <div class="flex flex-col items-center space-y-2">
+                                            <span class="text-4xl">📋</span>
+                                            <p class="text-lg font-medium">Nenhuma mensalidade cadastrada</p>
+                                            <p class="text-sm">Os pagamentos aparecerão aqui conforme você cadastrar
+                                                passageiros</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -763,11 +677,11 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Configurações Gerais -->
+                    <!-- Configurações de Tema -->
                     <div class="bg-white rounded-xl shadow-md p-6">
                         <h3 class="text-xl font-semibold mb-4 flex items-center space-x-2">
                             <span>🎨</span>
-                            <span>Aparência</span>
+                            <span>Tema</span>
                         </h3>
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
@@ -937,11 +851,9 @@
                             <select id="bairroResponsavel" class="w-full border border-gray-300 rounded-lg px-4 py-2"
                                 required>
                                 <option value="">Selecione o bairro</option>
-                                <option value="centro">Centro</option>
-                                <option value="jardim-america">Jardim América</option>
-                                <option value="vila-nova">Vila Nova</option>
-                                <option value="santa-monica">Santa Mônica</option>
-                                <option value="parque-industrial">Parque Industrial</option>
+                                <option value="passo-dareia">Passo d'Areia</option>
+                                <option value="conceicao">Conceição</option>
+                                <option value="alvorada">Alvorada</option>
                             </select>
                         </div>
                         <div>
@@ -961,10 +873,10 @@
                             <span>👶</span>
                             <span>Passageiros</span>
                         </h4>
-                        <button type="button" onclick="addIrmao()"
+                        <button type="button" onclick="addPassageiro()"
                             class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center space-x-2">
                             <span>➕</span>
-                            <span>Adicionar Irmão</span>
+                            <span>Adicionar Passageiro</span>
                         </button>
                     </div>
 
@@ -973,7 +885,6 @@
                         <div class="passageiro-item border border-gray-200 rounded-lg p-4 mb-4 bg-white">
                             <div class="flex justify-between items-center mb-3">
                                 <h5 class="font-medium text-gray-800">1º Passageiro</h5>
-                                <span class="text-sm text-green-600 font-medium">Valor integral</span>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
@@ -993,9 +904,9 @@
                                     <select class="passageiro-escola w-full border border-gray-300 rounded-lg px-4 py-2"
                                         required>
                                         <option value="">Selecione a escola</option>
-                                        <option value="escola-1">Èrico Verissimo</option>
-                                        <option value="escola-2">Piero Sassi</option>
-                                        <option value="escola-3">Arruda</option>
+                                        <option value="erico-verissimo">Érico Veríssimo</option>
+                                        <option value="arruda">Arruda</option>
+                                        <option value="piero-sassi">Piero Sassi</option>
                                     </select>
                                 </div>
                             </div>
@@ -1009,14 +920,10 @@
                         <span>💰</span>
                         <span>Resumo Financeiro</span>
                     </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="text-center">
                             <p class="text-sm text-gray-600">Total de Passageiros</p>
                             <p id="totalPassageiros" class="text-2xl font-bold text-blue-600">1</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600">Desconto Aplicado</p>
-                            <p id="descontoAplicado" class="text-2xl font-bold text-orange-600">R$ 0,00</p>
                         </div>
                         <div class="text-center">
                             <p class="text-sm text-gray-600">Valor Total Mensal</p>
@@ -1025,10 +932,8 @@
                     </div>
                     <div class="mt-4 p-3 bg-blue-100 rounded-lg">
                         <p class="text-sm text-blue-800">
-                            <strong>💡 Política de Desconto:</strong><br>
-                            • 1º filho: Valor integral<br>
-                            • 2º filho: 15% de desconto<br>
-                            • 3º filho em diante: 25% de desconto
+                            <strong>💡 Informação:</strong><br>
+                            O valor da mensalidade será aplicado igualmente para todos os passageiros desta família.
                         </p>
                     </div>
                 </div>
@@ -1122,8 +1027,8 @@
             <input type="hidden" id="currentStatusInput" value="">
         </div>
     </div>
-    <script src="script.js"></script>
-    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'96e37e12000e0353',t:'MTc1NTAzODYxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
-</body>
 
+    <script src="./script.js"></script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'96e84de47715ae4a',t:'MTc1NTA4OTA3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
 </html>
