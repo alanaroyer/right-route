@@ -1,24 +1,19 @@
+//=================== SIDEBAR ==================
+function toggleMobileMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
 
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
+    sidebar.classList.toggle('sidebar--open'); 
+    overlay.classList.toggle('active'); 
+}
 
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        }
+function closeMobileMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
 
-        function closeMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
-
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        }
+    sidebar.classList.remove('sidebar--open');
+    overlay.classList.remove('active');
+}
 
         // Navigation
         function showSection(sectionId) {
