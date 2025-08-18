@@ -1,193 +1,118 @@
+/*=============== GOOGLE FONTS ===============*/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+/*=============== VARIABLES CSS ===============*/
+:root {
+    /*========== Colors ==========*/
+    /* Light Mode */
+    --primary-color: #2563eb;
+    --primary-color-alt: #1d4ed8;
+    --success-color: #16a34a;
+    --danger-color: #dc2626;
+    --warning-color: #f59e0b;
+    --secondary-color: #6b7280;
+    --body-color: #f9fafb;
+    --container-color: #ffffff;
+    --border-color: #e5e7eb;
+    --title-color: #1f2937;
+    --text-color: #4b5563;
+    --text-color-light: #6b7280;
+
+    /*========== Font and typography ==========*/
+    --body-font: 'Inter', sans-serif;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1.125rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+
+    /*========== Font weight ==========*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    --font-bold: 700;
+
+    /*========== z index ==========*/
+    --z-tooltip: 10;
+    --z-fixed: 100;
+    --z-modal: 1000;
+}
+
+/* Dark theme variables */
+body.dark {
+    --primary-color: #3b82f6;
+    --primary-color-alt: #2563eb;
+    --body-color: #121212;
+    --container-color: #1e1e1e;
+    --border-color: #333333;
+    --title-color: #e0e0e0;
+    --text-color: #d1d5db;
+    --text-color-light: #9ca3af;
+}
+
+/*=============================================== */
+/*==================== BASE =====================*/
+/*=============================================== */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition: background-color 0.4s;
 }
 
-.card-hover {
-    transition: all 0.3s ease;
+h1,
+h2,
+h3 {
+    color: var(--title-color);
+    font-weight: var(--font-semi-bold);
 }
 
-.card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+ul {
+    list-style: none;
 }
 
-.status-ativo,
-.status-pago {
-    background-color: #10b981;
+a {
+    text-decoration: none;
 }
 
-.status-inativo,
-.status-atrasado {
-    background-color: #ef4444;
+button {
+    font-family: var(--body-font);
 }
 
-.status-ferias,
-.status-pendente {
-    background-color: #f5d60b;
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-.sidebar-active {
-    background-color: #66beea;
-    color: white;
+/*=============================================== */
+/*=================== LAYOUT ====================*/
+/*=============================================== */
+.container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
 }
 
-.sidebar-btn.hover\:bg-gray-50:hover{
-    color: #4f46e5;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.modal.active {
+.main {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #10b981;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    z-index: 1001;
-    display: none;
-}
-
-.notification.show {
-    display: block;
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
 }
 
 /* =============================================== */
-/* ================ Components =================== */
+/* ================== HEADER ===================== */
 /* =============================================== */
 
-.btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background-color: #2563eb;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #1d4ed8;
-}
-
-.btn-success {
-    background-color: #16a34a;
-    color: white;
-}
-
-.btn-success:hover {
-    background-color: #15803d;
-}
-
-.btn-danger {
-    background-color: #dc2626;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #b91c1c;
-}
-
-.btn-secondary {
-    background-color: #6b7280;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #4b5563;
-}
-
-.btn-icon {
-    padding: 0.5rem;
-}
-
-.card {
-    background-color: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    overflow: hidden;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #374151;
-
-}
-
-.form-input,
-.form-select,
-.form-textarea {
-    width: 100%;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-}
-
-/* Modo Escuro para Formulários */
-.dark .form-label {
-    color: #d1d5db;
-}
-
-.dark .form-input,
-.dark .form-select,
-.dark .form-textarea {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    border-color: #4a4a4a;
-}
-
-/* =============================================== */
-/* ================== header ===================== */
-/* =============================================== */
 .app-bg {
     background-color: #f9fafb;
 }
@@ -196,6 +121,9 @@ body {
     background: linear-gradient(90deg, hsla(213, 77%, 14%, 1) 0%, hsla(202, 27%, 45%, 1) 100%);
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-fixed);
 }
 
 .header-container {
@@ -206,7 +134,7 @@ body {
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -280,12 +208,10 @@ body {
 @media (min-width: 1024px) {
     .logo-text h1 {
         font-size: 1.5rem;
-        /* lg:text-2xl */
     }
 
     .logo-text p {
         font-size: 0.875rem;
-        /* lg:text-sm */
     }
 }
 
@@ -293,36 +219,28 @@ body {
 @media (min-width: 1024px) {
     .header-actions {
         gap: 1rem;
-        /* lg:space-x-4 */
     }
 }
 
 .theme-btn,
 .refresh-btn {
     width: 2rem;
-    /* w-8 */
     height: 2rem;
-    /* h-8 */
     background-color: rgba(255, 255, 255, 0.2);
-    /* bg-white bg-opacity-20 */
     border-radius: 9999px;
-    /* rounded-full */
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    /* transition-all */
 }
 
 .theme-btn:hover,
 .refresh-btn:hover {
     background-color: rgba(255, 255, 255, 0.3);
-    /* hover:bg-opacity-30 */
 }
 
 .theme-icon {
     font-size: 1.125rem;
-    /* text-lg */
 }
 
 @media (min-width: 1024px) {
@@ -330,18 +248,14 @@ body {
     .theme-btn,
     .refresh-btn {
         width: 2.5rem;
-        /* lg:w-10 */
         height: 2.5rem;
-        /* lg:h-10 */
     }
 
     .theme-icon {
         font-size: 1.25rem;
-        /* lg:text-xl */
     }
 }
 
-/* Menu Mobile */
 .mobile-menu-btn {
     position: fixed;
     top: 1rem;
@@ -441,6 +355,160 @@ body {
 
 .sidebar-btn:hover {
     background-color: #f3f4f6;
+}
+
+/*===============================================*/
+/*================== BUTTONS ====================*/
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: var(--font-medium);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-alt);
+}
+
+.btn-success {
+    background-color: #16a34a;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #15803d;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563;
+}
+
+.btn-icon {
+    padding: 0.5rem;
+}
+
+/*=============== CARD ===============*/
+.card {
+    background-color: var(--container-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    overflow: hidden;
+    transition: background-color 0.4s, border-color 0.4s, color 0.4s;
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card-hover:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+/*=============== FORMS ===============*/
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.dark .form-input,
+.dark .form-select,
+.dark .form-textarea {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #4a4a4a;
+}
+
+
+/*=============== MODAL ===============*/
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*=============== NOTIFICATION ===============*/
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #10b981;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    z-index: 1001;
+    display: none;
+}
+
+.notification.show {
+    display: block;
+    animation: slideIn 0.3s ease;
 }
 
 /* =============================================== */
@@ -561,4 +629,37 @@ body {
 .toggle-circle {
     transition: transform 0.3s ease;
     background-color: #4f46e5;
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.status-ativo,
+.status-pago {
+    background-color: #10b981;
+}
+
+.status-inativo,
+.status-atrasado {
+    background-color: #ef4444;
+}
+
+.status-ferias,
+.status-pendente {
+    background-color: #f5d60b;
+}
+
+.sidebar-active {
+    background-color: #66beea;
+    color: white;
+}
+
+.sidebar-btn.hover\:bg-gray-50:hover {
+    color: #4f46e5;
 }
