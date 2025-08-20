@@ -15,6 +15,40 @@ function closeMobileMenu() {
     overlay.classList.remove('active');
 }
 
+function adicionarAtividade(tipo, descricao, meta) {
+    const activityList = document.getElementById('recentActivityList');
+    
+    // Remove a mensagem de "nenhuma atividade" se ela existir
+    const placeholder = activityList.querySelector('p');
+    if (placeholder) {
+        placeholder.remove();
+    }
+
+    // Define o ícone e a classe modificadora com base no tipo
+    const iconMap = {
+        success: '✓',
+        primary: '📱',
+        warning: '👤'
+    };
+    const icon = iconMap[tipo] || '•';
+    const modifierClass = `activity-item__icon--${tipo}`;
+
+    // Cria o HTML para o novo item
+    const newItemHTML = `
+        <div class="activity-item">
+            <div class="activity-item__icon ${modifierClass}">
+                <span>${icon}</span>
+            </div>
+            <div class="activity-item__details">
+                <p class="activity-item__description">${descricao}</p>
+                <p class="activity-item__meta">${meta}</p>
+            </div>
+        </div>
+    `;
+
+    // Adiciona o novo item no início da lista
+    activityList.insertAdjacentHTML('afterbegin', newItemHTML);
+}
         // Navigation
         function showSection(sectionId) {
             // Hide all sections

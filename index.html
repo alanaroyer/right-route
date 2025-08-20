@@ -82,107 +82,69 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-4 lg:p-6 lg:ml-0">
+        <main class="main-content">
             <!-- Dashboard Section -->
             <div id="dashboard" class="section">
-                <div class="mb-6">
-                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">Dashboard</h2>
-                    <p class="text-gray-600 text-sm lg:text-base">Visão geral do seu negócio</p>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
+                <header class="page-header">
+                    <h2 class="page-title">Dashboard</h2>
+                    <p class="page-subtitle">Visão geral do seu negócio</p>
+                </header>
+                <div class="stats-grid">
                     <div class="card card-hover">
-                        <div class="flex items-center justify-between">
+                        <div class="stat-card__content">
                             <div>
-                                <p class="text-gray-500 text-xs lg:text-sm">Passageiros Cadastrados</p>
-                                <p id="totalPassageirosDash" class="text-2xl lg:text-3xl font-bold text-blue-600">0</p>
-                                <p class="text-xs text-gray-400">total cadastrado</p>
+                                <p class="stat-card__label">Passageiros Cadastrados</p>
+                                <p id="totalPassageirosDash" class="stat-card__value stat-card__value--primary">0</p>
+                                <p class="stat-card__meta">total cadastrado</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <span class="text-xl lg:text-2xl">👥</span>
+                            <div class="stat-card__icon stat-card__icon--primary">
+                                <span>👥</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="card card-hover">
-                        <div class="flex items-center justify-between">
+                        <div class="stat-card__content">
                             <div>
-                                <p class="text-gray-500 text-xs lg:text-sm">Receita Mensal</p>
-                                <p id="receitaMensalDash" class="text-2xl lg:text-3xl font-bold text-green-600">R$ 0,00
-                                </p>
-                                <p class="text-xs text-gray-400">soma das mensalidades</p>
+                                <p class="stat-card__label">Receita Mensal</p>
+                                <p id="receitaMensalDash" class="stat-card__value stat-card__value--success">R$ 0,00</p>
+                                <p class="stat-card__meta">soma das mensalidades</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <span class="text-xl lg:text-2xl">💰</span>
+                            <div class="stat-card__icon stat-card__icon--success">
+                                <span>💰</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="card card-hover">
-                        <div class="flex items-center justify-between">
+                        <div class="stat-card__content">
                             <div>
-                                <p class="text-gray-500 text-xs lg:text-sm">Pagamentos Pendentes</p>
-                                <p class="text-2xl lg:text-3xl font-bold text-orange-600">0</p>
-                                <p class="text-xs text-gray-400">R$ 0,00</p>
+                                <p class="stat-card__label">Pagamentos Pendentes</p>
+                                <p class="stat-card__value stat-card__value--warning">0</p>
+                                <p class="stat-card__meta">R$ 0,00</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                                <span class="text-xl lg:text-2xl">⏰</span>
+                            <div class="stat-card__icon stat-card__icon--warning">
+                                <span>⏰</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="card card-hover">
-                        <div class="flex items-center justify-between">
+                        <div class="stat-card__content">
                             <div>
-                                <p class="text-gray-500 text-xs lg:text-sm">Passageiros Ativos</p>
-                                <p id="passageirosAtivosDash" class="text-2xl lg:text-3xl font-bold text-purple-600">0
-                                </p>
-                                <p class="text-xs text-gray-400">status ativo</p>
+                                <p class="stat-card__label">Passageiros Ativos</p>
+                                <p id="passageirosAtivosDash" class="stat-card__value stat-card__value--purple">0</p>
+                                <p class="stat-card__meta">status ativo</p>
                             </div>
-                            <div
-                                class="w-10 h-10 lg:w-12 lg:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <span class="text-xl lg:text-2xl">✅</span>
+                            <div class="stat-card__icon stat-card__icon--purple">
+                                <span>✅</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Recent Activity -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-4">Atividades Recentes</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                <span class="text-green-600">✓</span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-medium">Pagamento recebido - Ana Silva</p>
-                                <p class="text-sm text-gray-500">R$ 200,00 • Há 2 horas</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-blue-600">📱</span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-medium">Lembrete enviado - Carlos Santos</p>
-                                <p class="text-sm text-gray-500">WhatsApp • Há 4 horas</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                                <span class="text-orange-600">👤</span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="font-medium">Novo passageiro cadastrado - Maria Oliveira</p>
-                                <p class="text-sm text-gray-500">Há 1 dia</p>
-                            </div>
-                        </div>
+                <div class="card">
+                    <h3 class="card__title">Atividades Recentes</h3>
+                    <div id="recentActivityList" class="activity-list">
+                        <p class="activity-item__meta" style="text-align: center;">Nenhuma atividade recente para exibir.</p>
                     </div>
                 </div>
             </div>
