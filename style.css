@@ -120,6 +120,11 @@ img {
     display: flex;
 }
 
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
 /* =============================================== */
 /* ================== HEADER ===================== */
 /* =============================================== */
@@ -307,7 +312,6 @@ img {
 /*===============================================*/
 .page-header {
     margin-bottom: 1.5rem;
-    /* mb-6 */
 }
 
 .page-title {
@@ -315,7 +319,6 @@ img {
     font-weight: var(--font-bold);
     color: var(--title-color);
     margin-bottom: 0.5rem;
-    /* mb-2 */
 }
 
 .page-subtitle {
@@ -327,15 +330,19 @@ img {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
-    /* gap-6 */
     margin-bottom: 2rem;
-    /* mb-8 */
 }
 
 .stat-card__content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
+}
+
+.stat-card__details {
+    flex: 1;
+    min-width: 0;
 }
 
 .stat-card__label {
@@ -347,6 +354,7 @@ img {
     font-size: var(--h1-font-size);
     font-weight: var(--font-bold);
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .stat-card__meta {
@@ -357,11 +365,8 @@ img {
 
 .stat-card__icon {
     width: 3rem;
-    /* w-12 */
     height: 3rem;
-    /* h-12 */
     border-radius: 0.5rem;
-    /* rounded-lg */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -369,10 +374,8 @@ img {
 
 .stat-card__icon span {
     font-size: 1.5rem;
-    /* text-2xl */
 }
 
-/* Modificadores de cor para os cards */
 .stat-card__value--primary {
     color: var(--primary-color);
 }
