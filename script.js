@@ -631,7 +631,7 @@ function adicionarAtividade(tipo, descricao, meta) {
             }
         }
 
-        // Refresh function
+        // botão de atualização
         function refreshApp() {
             showNotification('Atualizando aplicativo...');
 

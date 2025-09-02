@@ -179,13 +179,16 @@ img {
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.75rem;
+    color: white;
 }
 
 .logo-text p {
     font-size: 0.75rem;
     opacity: 0.9;
     display: none;
+    color: white;
 }
+
 
 .theme-btn,
 .refresh-btn {
@@ -197,7 +200,11 @@ img {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    border: none;
+    color: white;
+    /* Garante que o ícone (span) seja sempre branco */
 }
+
 
 .theme-btn:hover,
 .refresh-btn:hover {
@@ -212,7 +219,8 @@ img {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    z-index: 50;
+    z-index: 1100;
+    /* Aumentado para garantir que fique acima de tudo */
     display: none;
 }
 
@@ -330,7 +338,7 @@ img {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .stat-card__content {
@@ -560,6 +568,57 @@ img {
 
 .empty-state__text {
     font-size: var(--small-font-size);
+}
+
+/*===============================================*/
+/*============= FINANCEIRO SECTION ==============*/
+/*===============================================*/
+.card__header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.finance-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.finance-card__title {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+}
+
+.finance-card__icon {
+    font-size: 1.5rem;
+}
+
+.finance-card__value {
+    font-size: 1.875rem;
+    font-weight: var(--font-bold);
+}
+
+.finance-card__meta {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    margin-top: 0.5rem;
+}
+
+/* Modificadores de cor */
+.finance-card__value--success {
+    color: var(--success-color);
+}
+
+.finance-card__value--warning {
+    color: var(--warning-color);
+}
+
+.finance-card__value--danger {
+    color: var(--danger-color);
 }
 
 /*===============================================*/
@@ -848,6 +907,14 @@ img {
 
     .filters-grid {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 72px;
+        height: calc(100vh - 72px);    
+        box-shadow: none;
+        transform: translateX(0);
     }
 }
 
