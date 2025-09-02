@@ -479,6 +479,90 @@ img {
 }
 
 /*===============================================*/
+/*=========== PASSAGEIROS SECTION ===============*/
+/*===============================================*/
+.page-actions-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.data-table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table__header {
+    background-color: var(--body-color);
+}
+
+.data-table__heading {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-medium);
+    color: var(--text-color-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table__body tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table__body tr:last-child {
+    border-bottom: none;
+}
+
+.data-table__cell {
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+}
+
+.empty-state {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    color: var(--text-color-light);
+}
+
+.empty-state__icon {
+    font-size: 2.5rem;
+}
+
+.empty-state__title {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+    color: var(--title-color);
+}
+
+.empty-state__text {
+    font-size: var(--small-font-size);
+}
+
+/*===============================================*/
 /*================== BUTTONS ====================*/
 /*===============================================*/
 .btn {
@@ -682,6 +766,20 @@ img {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .page-actions-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .filters-actions {
+        flex-direction: row;
+    }
 }
 
 /* desktops */
@@ -733,19 +831,23 @@ img {
     }
 
     .page-title {
-        font-size: 1.875rem; /* text-3xl */
+        font-size: 1.875rem;
     }
     .page-subtitle {
-        font-size: var(--normal-font-size); /* text-base */
+        font-size: var(--normal-font-size);
     }
     .stats-grid {
         grid-template-columns: repeat(4, 1fr);
     }
     .stat-card__label {
-        font-size: var(--small-font-size); /* text-sm */
+        font-size: var(--small-font-size);
     }
     .stat-card__value {
-        font-size: 1.875rem; /* text-3xl */
+        font-size: 1.875rem; 
+    }
+
+    .filters-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
