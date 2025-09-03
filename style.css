@@ -507,6 +507,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    align-items: flex-start;
 }
 
 .data-table-wrapper {
@@ -813,121 +814,6 @@ img {
     background-color: color-mix(in srgb, var(--scroll-thumb-color) 80%, black);
 }
 
-/*===============================================*/
-/*================ MEDIA QUERIES ================*/
-/*===============================================*/
-/* tablets */
-@media screen and (min-width: 640px) {
-    .logo-text p {
-        display: block;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .page-actions-header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .filters-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .filters-actions {
-        flex-direction: row;
-    }
-}
-
-/* desktops */
-@media screen and (min-width: 1024px) {
-    .header-container {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .logo-container {
-        margin-left: 0;
-    }
-
-    .logo-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .logo-icon span {
-        font-size: 1.5rem;
-    }
-
-    .logo-text h1 {
-        font-size: 1.5rem;
-    }
-
-    .logo-text p {
-        font-size: 0.875rem;
-    }
-
-    .header-actions {
-        gap: 1rem;
-    }
-
-    .theme-btn,
-    .refresh-btn {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .theme-icon {
-        font-size: 1.25rem;
-    }
-
-    .sidebar {
-        position: static;
-        transform: translateX(0);
-        box-shadow: none;
-    }
-
-    .page-title {
-        font-size: 1.875rem;
-    }
-    .page-subtitle {
-        font-size: var(--normal-font-size);
-    }
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    .stat-card__label {
-        font-size: var(--small-font-size);
-    }
-    .stat-card__value {
-        font-size: 1.875rem; 
-    }
-
-    .filters-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .sidebar {
-        position: sticky;
-        top: 72px;
-        height: calc(100vh - 72px);    
-        box-shadow: none;
-        transform: translateX(0);
-    }
-}
-
-/* mobile */
-@media screen and (max-width: 1023px) {
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .mobile-overlay.active {
-        display: block;
-    }
-}
 
 /* =============================================== */
 /* ================= dark mode =================== */
@@ -1051,3 +937,121 @@ img {
     background-color: var(--primary-color);
 }
 
+/*===============================================*/
+/*================ MEDIA QUERIES ================*/
+/*===============================================*/
+@media screen and (min-width: 640px) {
+    .logo-text p {
+        display: block;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-actions-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter-grid { 
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .filter-actions {
+        flex-direction: row;
+        align-items: flex-start; 
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .logo-container {
+        margin-left: 0;
+    }
+
+    .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .logo-icon span {
+        font-size: 1.5rem;
+    }
+
+    .logo-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo-text p {
+        font-size: 0.875rem;
+    }
+
+    .header-actions {
+        gap: 1rem;
+    }
+
+    .theme-btn,
+    .refresh-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .theme-icon {
+        font-size: 1.25rem;
+    }
+
+    .sidebar {
+        position: static;
+        transform: translateX(0);
+        box-shadow: none;
+    }
+
+    .page-title {
+        font-size: 1.875rem;
+    }
+
+    .page-subtitle {
+        font-size: var(--normal-font-size);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-card__label {
+        font-size: var(--small-font-size);
+    }
+
+    .stat-card__value {
+        font-size: 1.875rem;
+    }
+
+    .filter-grid { 
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 72px;
+        height: calc(100vh - 72px);
+        box-shadow: none;
+        transform: translateX(0);
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .mobile-overlay.active {
+        display: block;
+    }
+}
