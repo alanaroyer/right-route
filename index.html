@@ -212,9 +212,8 @@
                     <div id="filterResults" class="mt-4 text-sm text-gray-600 hidden">
                         <span id="resultCount">0</span> passageiros encontrados
                     </div>
-                </div>
-            
-                <div class="card" style="padding: 0;">
+                </div>   
+                <div class="card card--flush">
                     <div class="hidden lg:block data-table-wrapper">
                         <table class="data-table">
                             <thead class="data-table__header">
@@ -227,7 +226,7 @@
                                     <th class="data-table__heading">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody class="data-table__body">
+                            <tbody id="passageirosTableBody" class="data-table__body">
                                 <tr class="data-table__empty-row">
                                     <td colspan="6" class="data-table__cell">
                                         <div class="empty-state">
@@ -240,15 +239,15 @@
                             </tbody>
                         </table>
                     </div>
-            
-                    <div class="lg:hidden">
-                        <div class="empty-state">
-                            <span class="empty-state__icon">👥</span>
-                            <p class="empty-state__title">Nenhum passageiro cadastrado</p>
-                            <p class="empty-state__text">Clique em "Novo Passageiro" para começar</p>
-                        </div>
-                    </div>
-                </div>
+
+    <div id="passageirosCardContainer" class="lg:hidden">
+        <div class="empty-state">
+            <span class="empty-state__icon">👥</span>
+            <p class="empty-state__title">Nenhum passageiro cadastrado</p>
+            <p class="empty-state__text">Clique em "Novo Passageiro" para começar</p>
+        </div>
+    </div>
+</div>
             </div>
 
             <!-- Financeiro Section -->
